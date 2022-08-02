@@ -1,6 +1,10 @@
 export interface ICreateUser {
-  name: String;
-  email: String;
+  name: string;
+  email: string;
   password: string;
-  role: String;
+  role: string;
+}
+export interface ISignIn {
+  email: string;
+  password: string;
 }

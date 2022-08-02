@@ -21,3 +21,10 @@ export class CreateUser {
     this.createdAt = createdAt;
   }
 }
+
+export interface IUser {
+  name: string;
+  email: string;
+  role: string;
+  createdAt: Date;
+}

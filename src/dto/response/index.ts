@@ -1,10 +1,10 @@
 export class Response {
-  public status: Number;
-  public data: any;
+  public status: number;
+  public response: any;
   public message: string;
-  constructor(status: Number, data?: any) {
+  constructor(status: number, data?: any) {
     this.status = status;
-    this.data = data || [];
+    this.response = data || [];
     this.message = "";
   }
   setMsg(message: string) {
