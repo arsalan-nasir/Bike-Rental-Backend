@@ -25,7 +25,13 @@ router.post("/signin", async (req: Request, res: Response) => {
 
 router.get("/users", validateToken, async (req: Request, res: Response) => {
   try {
-    const response = await UserService.getAllUsers();
+    const { page, size } = req.query;
+
+    const response = await UserService.getAllUsers(
+      (page as string) || "1",
+      (size as string) || "10"
+    );
+
     return res.status(response.status).json(response);
   } catch (error: any) {
     return res.status(500).json(error._message || "Server Error");

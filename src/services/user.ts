@@ -1,5 +1,10 @@
 import User from "../models/user";
-import { hashPassword, checkPassword, generateToken } from "../utils/auth";
+import {
+  hashPassword,
+  checkPassword,
+  generateToken,
+  getPaginatedData,
+} from "../utils/auth";
 import { ICreateUser, ISignIn } from "../dto/request/User";
 import { CreateUser, IUser } from "../dto/response/User";
 import { Response } from "../dto/response";
@@ -46,12 +51,19 @@ const signIn = async (params: ISignIn) => {
   }
 };
 
-const getAllUsers = async () => {
+const getAllUsers = async (page: string, size: string) => {
   const users = await User.find({});
-  const modifiedUsers = users.map((user: IUser) => new CreateUser(user));
+  const paginatedUsers = getPaginatedData(
+    users,
+    parseInt(page),
+    parseInt(size)
+  );
+  const modifiedUsers = paginatedUsers.map(
+    (user: IUser) => new CreateUser(user)
+  );
   return new Response(201, {
     data: modifiedUsers,
-  });
+  }).setPaginationObject(page, size);
 };
 
 export default { createUser, signIn, getAllUsers };
